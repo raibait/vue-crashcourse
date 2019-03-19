@@ -15,7 +15,16 @@
 			CONTENT
 			<!-- Obiekt Vue podpinamy wg konwencji przez Id, ale można użyć każdego selectora css -->
 			<div id="vueApp">{{ message }}</div>
-			<span>{{ message }}</span> <span>{{ message }}</span> <span>{{ message }}</span>
+			<div>
+				<span>{{ message }}</span> <span>{{ message }}</span> <span>{{ message }}</span>
+			</div>
+			<div id="vueAppBinds">
+				<div v-bind:style="style" >{{title}}</div>
+				<button v-on:click="alert()" :disabled="enabled">Alert</button>
+				<button v-onclick="alertData()" :disabled="enabled">Show title</button>
+				<button @click="changeColor()">Change title color</button>
+				<button @click="toggleEnable()">Disable first button</button>
+			</div>
 		</div>
 		<footer class="footer">FOOTER</footer>
 
