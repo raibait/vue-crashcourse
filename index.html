@@ -15,19 +15,105 @@
 			CONTENT
 			<!-- Obiekt Vue podpinamy wg konwencji przez Id, ale można użyć każdego selectora css -->
 			<div id="vueApp">{{ message }}</div>
+
 			<div>
 				<span>{{ message }}</span> <span>{{ message }}</span> <span>{{ message }}</span>
 			</div>
+
 			<div id="vueAppBinds">
+
 				<div v-bind:style="style" >{{title}}</div>
-				<button v-on:click="alert()" :disabled="enabled">Alert</button>
-				<button v-onclick="alertData()" :disabled="enabled">Show title</button>
-				<button @click="changeColor()">Change title color</button>
-				<button @click="toggleEnable()">Disable first button</button>
+				<button v-on:click="alertData(4,$event,5)">Show title</button>
+				<!-- event modifiers -->
+				<span v-on:click.once="alert">
+					<button v-on:click.once="alert" >Alert</button>
+				</span>
+				<span v-on:click.once="alert">
+						<button v-on:click.once.stop="alert" >Alert</button>
+				</span>
+
+				<button @click="changeColor" :disabled="enabled">Change title color</button>
+				<button @click="toggleEnable">Enable color change</button>
+				<input v-model:value="title" type="text">
+				<br>
+
+				<input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+				<label for="jack">Jack</label>
+				<input type="checkbox" id="john" value="John" v-model="checkedNames">
+				<label for="john">John</label>
+				<input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+				<label for="mike">Mike</label>
+				<br>
+				<span @mouseover="changeColor">Checked names: {{ checkedNames }}</span>
+
 			</div>
+
+			<div id="vueAppDirectives">
+				<input type="number" v-model.number="qty">
+
+				<span v-if="qty === 1"> if</span>
+				<span v-else-if="qty === 2">else if </span>
+				<span v-else>else</span>
+				<br>
+				<button @click="toggleVisible">V-Show </button>
+				<span v-show="visible">Text</span>
+				<br>
+				<ul>
+					<li v-for="item in someArray">{{item}}  </li>
+				</ul>
+				<br>
+				<ul>
+					<li v-for="(item, index) in someArray" :key="index">{{index}} - {{item}}  </li>
+				</ul>
+				<br>
+				<ul>
+					<li v-for="(item, key, index) in someObject" :key="index">{{index}} - {{key}} - {{item}}  </li>
+				</ul>
+			</div>
+
+			<div id="vueAppComputed">
+				<button @click="counter1++">Add 1</button>
+				<span>{{method1()}}</span>
+				<button @click="counter2++">Add 1</button>
+				<span>{{method2()}}</span>
+				<button @click="counter3++">Add 1</button>
+				<span>{{computed1}}</span>
+				<button @click="counter4++">Add 1</button>
+				<span>{{computed2}}</span>
+			</div >
+
+			<div id="vueAppTemplate">Outside template</div>
+
+			<div id="vueAppHttp">
+				<button @click="getLuke">get Luke!</button>
+				<div v-if="luke.name">Name: {{luke.name}}</div>
+				<div v-if="luke.hair">Hair: {{luke.hair}}</div>
+				<div v-if="luke.hair">Height: {{luke.height}}</div>
+			</div>
+
+			<div id="vueAppComponents">
+				<button-counter></button-counter>
+				<button-counter2></button-counter2>
+			</div>
+
+			<div id="vueAppComponents2">
+				<button-counter></button-counter>
+				<button-counter2></button-counter2>
+			</div>
+
+			<div id="vueAppComponentsProps">
+				<display-callback :message="texts[0]" @call-back="consoleLog"></display-callback>
+				<display-callback :message="texts[1]" @call-back="consoleLog($event)"></display-callback>
+			</div>
+
+			<div id="vueAppComponentsSlots">
+				<i-take-slot>! taking my slot !</i-take-slot>
+			</div>
+
 		</div>
 		<footer class="footer">FOOTER</footer>
 
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.2/axios.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 		<script src="main.js"></script>
 	</body>
